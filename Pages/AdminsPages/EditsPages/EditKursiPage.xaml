@@ -1,0 +1,67 @@
+﻿<Page x:Class="kursipovisheniakvalificaciy.Pages.EditKursiPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      Title="Редактирование нагрузки">
+
+    <Grid Margin="20" Background="Azure">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <!-- Кнопка "Назад" -->
+            <RowDefinition Height="Auto"/>
+            <!-- Таблица -->
+            <RowDefinition Height="Auto"/>
+            <!-- Форма редактирования -->
+            <RowDefinition Height="Auto"/>
+            <!-- Кнопки управления -->
+        </Grid.RowDefinitions>
+
+        <!-- Кнопка "Назад" -->
+        <Button Background="Blue" Foreground="AliceBlue" Content="Назад" Width="80" Height="30"
+                HorizontalAlignment="Left"
+                Click="BackButton_Click"/>
+
+        <!-- Таблица с нагрузкой -->
+        <DataGrid Name="NagruzkaDataGrid" Grid.Row="1" Margin="0,10,0,10"
+          AutoGenerateColumns="False" IsReadOnly="True"
+          SelectionMode="Single" SelectionChanged="NagruzkaDataGrid_SelectionChanged">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Преподаватель" Binding="{Binding Prepodavateli.Familiya}" Width="150"/>
+                <DataGridTextColumn Header="Группа" Binding="{Binding Gruppy.Nomer_gruppy}" Width="100"/>
+                <DataGridTextColumn Header="Предмет" Binding="{Binding Predmet}" Width="200"/>
+                <DataGridTextColumn Header="Тип занятия" Binding="{Binding Tip_zanyatiya}" Width="150"/>
+                <DataGridTextColumn Header="Кол-во часов" Binding="{Binding Kolichestvo_chasov}" Width="100"/>
+                <DataGridTextColumn Header="Оплата" Binding="{Binding Oplata}" Width="100"/>
+            </DataGrid.Columns>
+        </DataGrid>
+
+
+        <!-- Форма редактирования -->
+        <StackPanel Grid.Row="2" Margin="10">
+            <TextBlock Text="Преподаватель:"/>
+            <ComboBox Name="PrepodavatelComboBox" DisplayMemberPath="FullName" SelectedValuePath="Kod_prepodavatelya"/>
+
+            <TextBlock Text="Группа:"/>
+            <ComboBox Name="GruppaComboBox" DisplayMemberPath="Nomer_gruppy" SelectedValuePath="Nomer_gruppy"/>
+
+            <TextBlock Text="Предмет:"/>
+            <TextBox Name="PredmetTextBox"/>
+
+            <TextBlock Text="Тип занятия:"/>
+            <TextBox Name="TipZanyatiyaTextBox"/>
+
+            <TextBlock Text="Кол-во часов:"/>
+            <TextBox Name="KolichestvoChasovTextBox"/>
+
+            <TextBlock Text="Оплата:"/>
+            <TextBox Name="OplataTextBox"/>
+        </StackPanel>
+
+        <!-- Кнопки управления -->
+        <StackPanel Grid.Row="3" Orientation="Horizontal" HorizontalAlignment="Center" Margin="10">
+            <Button Background="Blue" Foreground="AliceBlue" Content="Добавить" Width="100" Margin="5" Click="AddNagruzka_Click"/>
+            <Button Background="Blue" Foreground="AliceBlue" Content="Изменить" Width="100" Margin="5" Click="EditNagruzka_Click"/>
+            <Button Background="Blue" Foreground="AliceBlue" Content="Удалить" Width="100" Margin="5" Click="DeleteNagruzka_Click"/>
+        </StackPanel>
+    </Grid>
+</Page>
+

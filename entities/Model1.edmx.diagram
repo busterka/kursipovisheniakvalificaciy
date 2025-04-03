@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="aa28620c76c1435f8899dfa8dadcfe95" Name="Diagram1">
+        <EntityTypeShape EntityType="KursyPovysheniyaKvalifikaciiModel.Gruppy" Width="1.5" PointX="2.75" PointY="5.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="KursyPovysheniyaKvalifikaciiModel.Nagruzka" Width="1.5" PointX="5" PointY="5" IsExpanded="true" />
+        <EntityTypeShape EntityType="KursyPovysheniyaKvalifikaciiModel.Pol" Width="1.5" PointX="0.75" PointY="1.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="KursyPovysheniyaKvalifikaciiModel.Polzovateli" Width="1.5" PointX="3" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="KursyPovysheniyaKvalifikaciiModel.Prepodavateli" Width="1.5" PointX="2.75" PointY="8" IsExpanded="true" />
+        <EntityTypeShape EntityType="KursyPovysheniyaKvalifikaciiModel.Roli" Width="1.5" PointX="0.75" PointY="5.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="KursyPovysheniyaKvalifikaciiModel.sysdiagrams" Width="1.5" PointX="5.75" PointY="0.75" IsExpanded="true" />
+        <AssociationConnector Association="KursyPovysheniyaKvalifikaciiModel.FK__Nagruzka__Nomer___44FF419A" ManuallyRouted="false" />
+        <AssociationConnector Association="KursyPovysheniyaKvalifikaciiModel.FK__Nagruzka__Kod_pr__440B1D61" ManuallyRouted="false" />
+        <AssociationConnector Association="KursyPovysheniyaKvalifikaciiModel.FK__Polzovate__Kod_p__3D5E1FD2" ManuallyRouted="false" />
+        <AssociationConnector Association="KursyPovysheniyaKvalifikaciiModel.FK__Polzovateli__Rol__3C69FB99" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

@@ -1,0 +1,400 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="Хранилище KursyPovysheniyaKvalifikaciiModel" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Gruppy">
+          <Key>
+            <PropertyRef Name="Nomer_gruppy" />
+          </Key>
+          <Property Name="Nomer_gruppy" Type="int" Nullable="false" />
+          <Property Name="Specialnost" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="Otdelenie" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="Kolichestvo_studentov" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Nagruzka">
+          <Key>
+            <PropertyRef Name="Kod_prepodavatelya" />
+            <PropertyRef Name="Nomer_gruppy" />
+          </Key>
+          <Property Name="Kod_prepodavatelya" Type="int" Nullable="false" />
+          <Property Name="Nomer_gruppy" Type="int" Nullable="false" />
+          <Property Name="Kolichestvo_chasov" Type="int" Nullable="false" />
+          <Property Name="Predmet" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="Tip_zanyatiya" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Oplata" Type="decimal" Precision="10" Scale="2" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Pol">
+          <Key>
+            <PropertyRef Name="Kod_pola" />
+          </Key>
+          <Property Name="Kod_pola" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Tip_pola" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Polzovateli">
+          <Key>
+            <PropertyRef Name="ID_polzovatelya" />
+          </Key>
+          <Property Name="ID_polzovatelya" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Login" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="Parol" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="Rol" Type="int" Nullable="false" />
+          <Property Name="Kod_pola" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Prepodavateli">
+          <Key>
+            <PropertyRef Name="Kod_prepodavatelya" />
+          </Key>
+          <Property Name="Kod_prepodavatelya" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Familiya" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Imya" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Otchestvo" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Telefon" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="Stazh" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Roli">
+          <Key>
+            <PropertyRef Name="Kod_roli" />
+          </Key>
+          <Property Name="Kod_roli" Type="int" Nullable="false" />
+          <Property Name="Nazvanie" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
+        </EntityType>
+        <Association Name="FK__Nagruzka__Kod_pr__440B1D61">
+          <End Role="Prepodavateli" Type="Self.Prepodavateli" Multiplicity="1" />
+          <End Role="Nagruzka" Type="Self.Nagruzka" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Prepodavateli">
+              <PropertyRef Name="Kod_prepodavatelya" />
+            </Principal>
+            <Dependent Role="Nagruzka">
+              <PropertyRef Name="Kod_prepodavatelya" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Nagruzka__Nomer___44FF419A">
+          <End Role="Gruppy" Type="Self.Gruppy" Multiplicity="1" />
+          <End Role="Nagruzka" Type="Self.Nagruzka" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Gruppy">
+              <PropertyRef Name="Nomer_gruppy" />
+            </Principal>
+            <Dependent Role="Nagruzka">
+              <PropertyRef Name="Nomer_gruppy" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Polzovate__Kod_p__3D5E1FD2">
+          <End Role="Pol" Type="Self.Pol" Multiplicity="1" />
+          <End Role="Polzovateli" Type="Self.Polzovateli" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Pol">
+              <PropertyRef Name="Kod_pola" />
+            </Principal>
+            <Dependent Role="Polzovateli">
+              <PropertyRef Name="Kod_pola" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Polzovateli__Rol__3C69FB99">
+          <End Role="Roli" Type="Self.Roli" Multiplicity="1" />
+          <End Role="Polzovateli" Type="Self.Polzovateli" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Roli">
+              <PropertyRef Name="Kod_roli" />
+            </Principal>
+            <Dependent Role="Polzovateli">
+              <PropertyRef Name="Rol" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Хранилище KursyPovysheniyaKvalifikaciiModelContainer">
+          <EntitySet Name="Gruppy" EntityType="Self.Gruppy" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Nagruzka" EntityType="Self.Nagruzka" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Pol" EntityType="Self.Pol" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Polzovateli" EntityType="Self.Polzovateli" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Prepodavateli" EntityType="Self.Prepodavateli" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Roli" EntityType="Self.Roli" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__Nagruzka__Kod_pr__440B1D61" Association="Self.FK__Nagruzka__Kod_pr__440B1D61">
+            <End Role="Prepodavateli" EntitySet="Prepodavateli" />
+            <End Role="Nagruzka" EntitySet="Nagruzka" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Nagruzka__Nomer___44FF419A" Association="Self.FK__Nagruzka__Nomer___44FF419A">
+            <End Role="Gruppy" EntitySet="Gruppy" />
+            <End Role="Nagruzka" EntitySet="Nagruzka" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Polzovate__Kod_p__3D5E1FD2" Association="Self.FK__Polzovate__Kod_p__3D5E1FD2">
+            <End Role="Pol" EntitySet="Pol" />
+            <End Role="Polzovateli" EntitySet="Polzovateli" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Polzovateli__Rol__3C69FB99" Association="Self.FK__Polzovateli__Rol__3C69FB99">
+            <End Role="Roli" EntitySet="Roli" />
+            <End Role="Polzovateli" EntitySet="Polzovateli" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="KursyPovysheniyaKvalifikaciiModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Gruppy">
+          <Key>
+            <PropertyRef Name="Nomer_gruppy" />
+          </Key>
+          <Property Name="Nomer_gruppy" Type="Int32" Nullable="false" />
+          <Property Name="Specialnost" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Otdelenie" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Kolichestvo_studentov" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Nagruzka" Relationship="Self.FK__Nagruzka__Nomer___44FF419A" FromRole="Gruppy" ToRole="Nagruzka" />
+        </EntityType>
+        <EntityType Name="Nagruzka">
+          <Key>
+            <PropertyRef Name="Kod_prepodavatelya" />
+            <PropertyRef Name="Nomer_gruppy" />
+          </Key>
+          <Property Name="Kod_prepodavatelya" Type="Int32" Nullable="false" />
+          <Property Name="Nomer_gruppy" Type="Int32" Nullable="false" />
+          <Property Name="Kolichestvo_chasov" Type="Int32" Nullable="false" />
+          <Property Name="Predmet" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Tip_zanyatiya" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Oplata" Type="Decimal" Precision="10" Scale="2" Nullable="false" />
+          <NavigationProperty Name="Gruppy" Relationship="Self.FK__Nagruzka__Nomer___44FF419A" FromRole="Nagruzka" ToRole="Gruppy" />
+          <NavigationProperty Name="Prepodavateli" Relationship="Self.FK__Nagruzka__Kod_pr__440B1D61" FromRole="Nagruzka" ToRole="Prepodavateli" />
+        </EntityType>
+        <EntityType Name="Pol">
+          <Key>
+            <PropertyRef Name="Kod_pola" />
+          </Key>
+          <Property Name="Kod_pola" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Tip_pola" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Polzovateli" Relationship="Self.FK__Polzovate__Kod_p__3D5E1FD2" FromRole="Pol" ToRole="Polzovateli" />
+        </EntityType>
+        <EntityType Name="Polzovateli">
+          <Key>
+            <PropertyRef Name="ID_polzovatelya" />
+          </Key>
+          <Property Name="ID_polzovatelya" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Login" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Parol" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Rol" Type="Int32" Nullable="false" />
+          <Property Name="Kod_pola" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Pol" Relationship="Self.FK__Polzovate__Kod_p__3D5E1FD2" FromRole="Polzovateli" ToRole="Pol" />
+          <NavigationProperty Name="Roli" Relationship="Self.FK__Polzovateli__Rol__3C69FB99" FromRole="Polzovateli" ToRole="Roli" />
+        </EntityType>
+        <EntityType Name="Prepodavateli">
+          <Key>
+            <PropertyRef Name="Kod_prepodavatelya" />
+          </Key>
+          <Property Name="Kod_prepodavatelya" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Familiya" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Imya" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Otchestvo" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Telefon" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Stazh" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Nagruzka" Relationship="Self.FK__Nagruzka__Kod_pr__440B1D61" FromRole="Prepodavateli" ToRole="Nagruzka" />
+        </EntityType>
+        <EntityType Name="Roli">
+          <Key>
+            <PropertyRef Name="Kod_roli" />
+          </Key>
+          <Property Name="Kod_roli" Type="Int32" Nullable="false" />
+          <Property Name="Nazvanie" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Polzovateli" Relationship="Self.FK__Polzovateli__Rol__3C69FB99" FromRole="Roli" ToRole="Polzovateli" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <Association Name="FK__Nagruzka__Nomer___44FF419A">
+          <End Role="Gruppy" Type="Self.Gruppy" Multiplicity="1" />
+          <End Role="Nagruzka" Type="Self.Nagruzka" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Gruppy">
+              <PropertyRef Name="Nomer_gruppy" />
+            </Principal>
+            <Dependent Role="Nagruzka">
+              <PropertyRef Name="Nomer_gruppy" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Nagruzka__Kod_pr__440B1D61">
+          <End Role="Prepodavateli" Type="Self.Prepodavateli" Multiplicity="1" />
+          <End Role="Nagruzka" Type="Self.Nagruzka" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Prepodavateli">
+              <PropertyRef Name="Kod_prepodavatelya" />
+            </Principal>
+            <Dependent Role="Nagruzka">
+              <PropertyRef Name="Kod_prepodavatelya" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Polzovate__Kod_p__3D5E1FD2">
+          <End Role="Pol" Type="Self.Pol" Multiplicity="1" />
+          <End Role="Polzovateli" Type="Self.Polzovateli" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Pol">
+              <PropertyRef Name="Kod_pola" />
+            </Principal>
+            <Dependent Role="Polzovateli">
+              <PropertyRef Name="Kod_pola" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Polzovateli__Rol__3C69FB99">
+          <End Role="Roli" Type="Self.Roli" Multiplicity="1" />
+          <End Role="Polzovateli" Type="Self.Polzovateli" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Roli">
+              <PropertyRef Name="Kod_roli" />
+            </Principal>
+            <Dependent Role="Polzovateli">
+              <PropertyRef Name="Rol" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="KursyPovysheniyaKvalifikaciiEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Gruppy" EntityType="Self.Gruppy" />
+          <EntitySet Name="Nagruzka" EntityType="Self.Nagruzka" />
+          <EntitySet Name="Pol" EntityType="Self.Pol" />
+          <EntitySet Name="Polzovateli" EntityType="Self.Polzovateli" />
+          <EntitySet Name="Prepodavateli" EntityType="Self.Prepodavateli" />
+          <EntitySet Name="Roli" EntityType="Self.Roli" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
+          <AssociationSet Name="FK__Nagruzka__Nomer___44FF419A" Association="Self.FK__Nagruzka__Nomer___44FF419A">
+            <End Role="Gruppy" EntitySet="Gruppy" />
+            <End Role="Nagruzka" EntitySet="Nagruzka" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Nagruzka__Kod_pr__440B1D61" Association="Self.FK__Nagruzka__Kod_pr__440B1D61">
+            <End Role="Prepodavateli" EntitySet="Prepodavateli" />
+            <End Role="Nagruzka" EntitySet="Nagruzka" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Polzovate__Kod_p__3D5E1FD2" Association="Self.FK__Polzovate__Kod_p__3D5E1FD2">
+            <End Role="Pol" EntitySet="Pol" />
+            <End Role="Polzovateli" EntitySet="Polzovateli" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Polzovateli__Rol__3C69FB99" Association="Self.FK__Polzovateli__Rol__3C69FB99">
+            <End Role="Roli" EntitySet="Roli" />
+            <End Role="Polzovateli" EntitySet="Polzovateli" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="Хранилище KursyPovysheniyaKvalifikaciiModelContainer" CdmEntityContainer="KursyPovysheniyaKvalifikaciiEntities">
+          <EntitySetMapping Name="Gruppy">
+            <EntityTypeMapping TypeName="KursyPovysheniyaKvalifikaciiModel.Gruppy">
+              <MappingFragment StoreEntitySet="Gruppy">
+                <ScalarProperty Name="Nomer_gruppy" ColumnName="Nomer_gruppy" />
+                <ScalarProperty Name="Specialnost" ColumnName="Specialnost" />
+                <ScalarProperty Name="Otdelenie" ColumnName="Otdelenie" />
+                <ScalarProperty Name="Kolichestvo_studentov" ColumnName="Kolichestvo_studentov" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Nagruzka">
+            <EntityTypeMapping TypeName="KursyPovysheniyaKvalifikaciiModel.Nagruzka">
+              <MappingFragment StoreEntitySet="Nagruzka">
+                <ScalarProperty Name="Kod_prepodavatelya" ColumnName="Kod_prepodavatelya" />
+                <ScalarProperty Name="Nomer_gruppy" ColumnName="Nomer_gruppy" />
+                <ScalarProperty Name="Kolichestvo_chasov" ColumnName="Kolichestvo_chasov" />
+                <ScalarProperty Name="Predmet" ColumnName="Predmet" />
+                <ScalarProperty Name="Tip_zanyatiya" ColumnName="Tip_zanyatiya" />
+                <ScalarProperty Name="Oplata" ColumnName="Oplata" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Pol">
+            <EntityTypeMapping TypeName="KursyPovysheniyaKvalifikaciiModel.Pol">
+              <MappingFragment StoreEntitySet="Pol">
+                <ScalarProperty Name="Kod_pola" ColumnName="Kod_pola" />
+                <ScalarProperty Name="Tip_pola" ColumnName="Tip_pola" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Polzovateli">
+            <EntityTypeMapping TypeName="KursyPovysheniyaKvalifikaciiModel.Polzovateli">
+              <MappingFragment StoreEntitySet="Polzovateli">
+                <ScalarProperty Name="ID_polzovatelya" ColumnName="ID_polzovatelya" />
+                <ScalarProperty Name="Login" ColumnName="Login" />
+                <ScalarProperty Name="Parol" ColumnName="Parol" />
+                <ScalarProperty Name="Rol" ColumnName="Rol" />
+                <ScalarProperty Name="Kod_pola" ColumnName="Kod_pola" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Prepodavateli">
+            <EntityTypeMapping TypeName="KursyPovysheniyaKvalifikaciiModel.Prepodavateli">
+              <MappingFragment StoreEntitySet="Prepodavateli">
+                <ScalarProperty Name="Kod_prepodavatelya" ColumnName="Kod_prepodavatelya" />
+                <ScalarProperty Name="Familiya" ColumnName="Familiya" />
+                <ScalarProperty Name="Imya" ColumnName="Imya" />
+                <ScalarProperty Name="Otchestvo" ColumnName="Otchestvo" />
+                <ScalarProperty Name="Telefon" ColumnName="Telefon" />
+                <ScalarProperty Name="Stazh" ColumnName="Stazh" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Roli">
+            <EntityTypeMapping TypeName="KursyPovysheniyaKvalifikaciiModel.Roli">
+              <MappingFragment StoreEntitySet="Roli">
+                <ScalarProperty Name="Kod_roli" ColumnName="Kod_roli" />
+                <ScalarProperty Name="Nazvanie" ColumnName="Nazvanie" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="KursyPovysheniyaKvalifikaciiModel.sysdiagrams">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="definition" ColumnName="definition" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Нет" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

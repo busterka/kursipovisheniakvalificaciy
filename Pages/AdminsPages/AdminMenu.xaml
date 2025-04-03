@@ -1,0 +1,13 @@
+﻿<Page x:Class="kursipovisheniakvalificaciy.Pages.AdminMenu"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      Title="Меню администратора">
+    <Grid Background="Azure">
+        <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Width="300">
+            <Button Background="Blue" Foreground="AliceBlue" Content="Добавить пользователя" Click="AddUser_Click" Margin="5" Height="40"/>
+            <Button Background="Blue" Foreground="AliceBlue" Content="Пользователи" Click="Users_Click" Margin="5" Height="40"/>
+            <Button Background="Blue" Foreground="AliceBlue" Content="Редактирование" Click="Edit_Click" Margin="5" Height="40"/>
+            <Button Background="Blue" Foreground="AliceBlue" Content="Выход" Click="Exit_Click" Margin="5" Height="40"/>
+        </StackPanel>
+    </Grid>
+</Page>
